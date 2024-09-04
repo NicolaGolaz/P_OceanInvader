@@ -1,0 +1,16 @@
+World of warships (en 2d):
+
+- Le joueur a dix point de vie.
+- il se deplace de gauche a droite.
+- différent type de tir : normmal(1dégat), de zone 5 degat(il y a un temps de charge environ 10 seconde)
+- le joueur peux reprendre des point de vie après avoir couler un certain nombre de bateau.
+
+- Les ennemie on 1 point de vie pour les plus faible (niveau 1), 3 point de vie pour le niveau 2  et 5 point de vie pour le niveau 3.
+
+
+- des obstacles se trouvant sur a map permettent au joueur de se protéger contre les tir ennemies.  
+
+- le joueuer ne peut pas sortir de la fenêtre par les côté gauche et droite.
+
+Le joueur ne doit pas laisser les ennemies passer derrière lui.
+
