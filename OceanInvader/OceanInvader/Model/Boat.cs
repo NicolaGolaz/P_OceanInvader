@@ -1,4 +1,6 @@
-﻿namespace OceanInvader
+﻿using Microsoft.VisualBasic.Devices;
+
+namespace OceanInvader
 {
     // Cette partie de la classe Drone définit ce qu'est un drone par un modèle numérique
     public partial class Boat
@@ -13,10 +15,14 @@
 
         // Cette méthode calcule le nouvel état dans lequel le drone se trouve après
         // que 'interval' millisecondes se sont écoulées
+
         public void Update(int interval)
         {
-            x += 2;                                    // Il s'est déplacé de 2 pixels vers la droite
-            y += alea.Next(-2, 3);                     // Il s'est déplacé d'une valeur aléatoire vers le haut ou le bas
+
+            
+
+            y += 1;                                    // Il s'est déplacé de 2 pixels vers la droite
+            x += alea.Next(-20, 30);                     // Il s'est déplacé d'une valeur aléatoire vers le haut ou le bas
             charge--;                                  // Il a dépensé de l'énergie
         }
 

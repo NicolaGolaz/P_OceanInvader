@@ -1,3 +1,5 @@
+using OceanInvader.View;
+
 namespace OceanInvader
 {
     // La classe AirSpace représente le territoire au dessus duquel les drones peuvent voler
@@ -15,16 +17,19 @@ namespace OceanInvader
         BufferedGraphicsContext currentContext;
         BufferedGraphics airspace;
 
+        
         // Initialisation de l'espace aérien avec un certain nombre de drones
         public Ocean(List<Boat> fleet)
         {
             InitializeComponent();
+            
             // Gets a reference to the current BufferedGraphicsContext
             currentContext = BufferedGraphicsManager.Current;
             // Creates a BufferedGraphics instance associated with this form, and with
             // dimensions the same size as the drawing surface of the form.
             airspace = currentContext.Allocate(this.CreateGraphics(), this.DisplayRectangle);
             this.fleet = fleet;
+
         }
 
         // Affichage de la situation actuelle
@@ -33,9 +38,9 @@ namespace OceanInvader
             airspace.Graphics.Clear(Color.AliceBlue);
 
             // draw drones
-            foreach (Boat drone in fleet)
+            foreach (Boat boat in fleet)
             {
-                drone.Render(airspace);
+                boat.Render(airspace);
             }
 
             airspace.Render();
@@ -44,9 +49,9 @@ namespace OceanInvader
         // Calcul du nouvel état après que 'interval' millisecondes se sont écoulées
         private void Update(int interval)
         {
-            foreach (Boat drone in fleet)
+            foreach (Boat boat in fleet)
             {
-                drone.Update(interval);
+                boat.Update(interval);
             }
         }
 
@@ -56,5 +61,14 @@ namespace OceanInvader
             this.Update(ticker.Interval);
             this.Render();
         }
+
+        private void NewFrame1(object sender, PaintEventArgs e)
+        {
+           
+            Player.Render(e.Graphics);
+        }
+
+
+
     }
 }

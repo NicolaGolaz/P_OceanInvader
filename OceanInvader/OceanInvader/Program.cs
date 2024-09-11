@@ -1,3 +1,5 @@
+using OceanInvader.View;
+
 namespace OceanInvader
 {
     internal static class Program
@@ -8,26 +10,32 @@ namespace OceanInvader
         [STAThread]
         static void Main()
         {
+
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
 
             // Création de la flotte de drones
-            List<Boat> fleet= new List<Boat>();
-            Boat drone = new Boat();
-            drone.x = 150;
-            drone.y = 150;
-            drone.name = "Joe";
-            fleet.Add(drone);
+            List<Boat> fleet = new List<Boat>();
+            Boat boat = new Boat();
+            boat.x = 350;
+            boat.y = 0;
+            boat.name = "Joe";
+            fleet.Add(boat);
 
-            drone = new Boat();
-            drone.x = 250;
-            drone.y = 250;
-            drone.name = "Joe2";
-            fleet.Add(drone);
+
+            boat = new Boat();
+            boat.x = 150;
+            boat.y = 0;
+            boat.name = "jack";
+            fleet.Add(boat);
+
+            Player player = new Player();
+            
 
             // Démarrage
             Application.Run(new Ocean(fleet));
+
         }
     }
 }
