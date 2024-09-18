@@ -9,7 +9,7 @@ namespace OceanInvader
 
         public int charge = 1000;                     // La charge actuelle de la batterie
         public string name;                           // Un nom
-        public int x ;                                // Position en X depuis la gauche de l'espace aérien
+        public int x;                                // Position en X depuis la gauche de l'espace aérien
         public int y;                                 // Position en Y depuis le haut de l'espace aérien
 
 
@@ -19,11 +19,36 @@ namespace OceanInvader
         public void Update(int interval)
         {
 
-            
 
-            y += 1;                                    // Il s'est déplacé de 2 pixels vers la droite
-            x += alea.Next(-20, 30);                     // Il s'est déplacé d'une valeur aléatoire vers le haut ou le bas
-            charge--;                                  // Il a dépensé de l'énergie
+            if (y < 580 && x > 0 && x < 1180)
+            {
+                y += 3;                                    // Il s'est déplacé de 2 pixels vers la droite
+                x += alea.Next(-20, 20);                     // Il s'est déplacé d'une valeur aléatoire vers le haut ou le bas
+                charge--;
+            }// Il a dépensé de l'énergie
+            else if (x < 0)
+            {
+                y += 3;                                    // Il s'est déplacé de 2 pixels vers la droite
+                x += 20;                     // Il s'est déplacé d'une valeur aléatoire vers le haut ou le bas
+                charge--;
+            }
+            else if (x < 0)
+            {
+                y += 3;                                    // Il s'est déplacé de 2 pixels vers la droite
+                x += 20;                     // Il s'est déplacé d'une valeur aléatoire vers le haut ou le bas
+                charge--;
+            }
+            else if (x > 1180)
+            {
+                y += 3;                                    // Il s'est déplacé de 2 pixels vers la droite
+                x -= 20;                     // Il s'est déplacé d'une valeur aléatoire vers le haut ou le bas
+                charge--;
+            }
+            else if (y > 580)
+            {
+                return;
+            }
+
         }
 
     }

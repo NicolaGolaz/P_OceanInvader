@@ -8,15 +8,15 @@ namespace OceanInvader
 
         public int X { get; private set; }
         public int Y { get; private set; }
-        
+
         private int speed;
 
         public Player(int x, int y)
         {
             X = x;
             Y = y;
-            
-           
+
+
         }
 
         // Méthode pour déplacer le joueur en fonction de l'entrée du clavier
@@ -24,19 +24,54 @@ namespace OceanInvader
         {
             if (e.KeyCode == Keys.W) // Haut
             {
-                Y -= 5;
+
+                if (playerY > 300)
+                {
+                    Y -= 5;
+                    playerY -= 5;
+                }
+                else
+                {
+                    Y -= 0;
+                }
+
+
             }
             if (e.KeyCode == Keys.S) // Bas
             {
-                Y += 5;
+                if (playerY < 480)
+                {
+                    Y += 5;
+                    playerY += 5;
+                }
+                else
+                {
+                    playerY += 0;
+                }
             }
             if (e.KeyCode == Keys.A) // Gauche
             {
-                X -= 5;
+                if (playerX > 0)
+                {
+                    X -= 5;
+                    playerX -= 5;
+                }
+                else
+                {
+                    X -= 0;
+                }
             }
             if (e.KeyCode == Keys.D) // Droite
             {
-                X += 5;
+                if (playerX < 1180)
+                {
+                    X += 5;
+                    playerX += 5;
+                }
+                else
+                {
+                    playerX += 0;
+                }
             }
         }
 
