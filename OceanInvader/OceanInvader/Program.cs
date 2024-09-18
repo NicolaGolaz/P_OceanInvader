@@ -1,4 +1,5 @@
-using OceanInvader.View;
+using OceanInvader;
+using System.Drawing.Imaging;
 
 namespace OceanInvader
 {
@@ -30,11 +31,14 @@ namespace OceanInvader
             boat.name = "jack";
             fleet.Add(boat);
 
-            Player player = new Player();
-            
+            List<Player> players = new List<Player>();
+            Player player = new Player(600, 400);
+
+
+            players.Add(player);
 
             // Démarrage
-            Application.Run(new Ocean(fleet));
+            Application.Run(new Ocean(fleet, players));
 
         }
     }

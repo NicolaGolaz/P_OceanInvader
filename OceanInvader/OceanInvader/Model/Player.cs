@@ -1,43 +1,46 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace BoatMovement
+namespace OceanInvader
 {
-    public class Player
+    public partial class Player
     {
+
         public int X { get; private set; }
         public int Y { get; private set; }
-        public int Width { get; }
-        public int Height { get; }
+        
         private int speed;
 
-        public Player(int x, int y, int width, int height, int speed)
+        public Player(int x, int y)
         {
             X = x;
             Y = y;
-            Width = width;
-            Height = height;
-            this.speed = speed;
+            
+           
         }
 
+        // Méthode pour déplacer le joueur en fonction de l'entrée du clavier
         public void Move(KeyEventArgs e)
         {
             if (e.KeyCode == Keys.W) // Haut
             {
-                Y -= speed;
+                Y -= 5;
             }
             if (e.KeyCode == Keys.S) // Bas
             {
-                Y += speed;
+                Y += 5;
             }
             if (e.KeyCode == Keys.A) // Gauche
             {
-                X -= speed;
+                X -= 5;
             }
             if (e.KeyCode == Keys.D) // Droite
             {
-                X += speed;
+                X += 5;
             }
         }
+
+
+
     }
 }
