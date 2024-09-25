@@ -14,17 +14,18 @@ namespace OceanInvader
         // La flotte est l'ensemble des drones qui évoluent dans notre espace aérien
         private List<Boat> fleet;
         private List<Player> players;
-
-        
+        public List<Projectile> projectiles;
+        private Player player;
 
         BufferedGraphicsContext currentContext;
         BufferedGraphics airspace;
 
-        
+
         // Initialisation de l'espace aérien avec un certain nombre de drones
-        public Ocean(List<Boat> fleet, List<Player> players)
+        public Ocean(List<Boat> fleet, List<Player> players, List<Projectile> projectiles)
         {
             InitializeComponent();
+            this.ClientSize = new Size(WIDTH, HEIGHT);
 
             this.KeyDown += new KeyEventHandler(OnKeyDown);
 
@@ -35,7 +36,7 @@ namespace OceanInvader
             airspace = currentContext.Allocate(this.CreateGraphics(), this.DisplayRectangle);
             this.fleet = fleet;
             this.players = players;
-
+            this.projectiles = projectiles;
 
             this.DoubleBuffered = true; // Pour éviter le scintillement lors du rendu
 
@@ -69,6 +70,10 @@ namespace OceanInvader
                 player.Render(airspace);
             }
 
+            foreach (Projectile projectile in projectiles)
+            {
+                projectile.Render(airspace);
+            }
 
             airspace.Render();
         }
@@ -80,7 +85,10 @@ namespace OceanInvader
             {
                 boat.Update(interval);
             }
-
+            foreach(Projectile projectile in projectiles)
+            {
+                projectile.Update();
+            }
             
 
         }
@@ -88,11 +96,21 @@ namespace OceanInvader
         // Méthode appelée à chaque frame
         private void NewFrame(object sender, EventArgs e)
         {
-  
+
             this.Update(ticker.Interval);
             this.Render();
-            
+
         }
-        
+
+        private void Ocean_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                Projectile projectile = new Projectile(player);
+                projectiles.Add(projectile);
+                
+                MessageBox.Show($"Clic à ({e.X},{e.Y})");
+            }
+        }
     }
 }

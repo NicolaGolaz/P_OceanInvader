@@ -23,7 +23,7 @@ namespace OceanInvader
         // De manière graphique
         public void Render(BufferedGraphics drawingSpace)
         {
-            drawingSpace.Graphics.DrawRectangle(droneBrush, new Rectangle(X , Y, 20, 20));
+            drawingSpace.Graphics.DrawRectangle(droneBrush, new Rectangle(X , Y, playerHeight, playerWidth));
             
         }
 

@@ -24,8 +24,7 @@ namespace OceanInvader
             Player player = new Player(600, 500);
             players.Add(player);
 
-            for (int i = 0; i < 10; i++)
-            {
+            
 
                 Boat boat = new Boat();
                 boat.x = Random1.RandomX();
@@ -33,14 +32,13 @@ namespace OceanInvader
                 boat.name = "Joe";
                 fleet.Add(boat);
 
-            }
-
+            List<Projectile> projectiles = new List<Projectile>();
 
 
                 
 
                 // Démarrage
-                Application.Run(new Ocean(fleet, players));
+                Application.Run(new Ocean(fleet, players, projectiles));
             
 
         }
