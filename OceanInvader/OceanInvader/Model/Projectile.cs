@@ -9,7 +9,7 @@ namespace OceanInvader
     public partial class Projectile
     {
 
-        private int projSpeed = 2;
+        private int projSpeed = 5;
         public void Update()
         {
             projY -= projSpeed;

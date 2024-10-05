@@ -17,6 +17,8 @@ namespace OceanInvader
         public List<Projectile> projectiles;
         private Player player;
 
+        
+
         BufferedGraphicsContext currentContext;
         BufferedGraphics airspace;
 
@@ -26,6 +28,9 @@ namespace OceanInvader
         {
             InitializeComponent();
             this.ClientSize = new Size(WIDTH, HEIGHT);
+
+           
+
 
             this.KeyDown += new KeyEventHandler(OnKeyDown);
 
@@ -37,6 +42,9 @@ namespace OceanInvader
             this.fleet = fleet;
             this.players = players;
             this.projectiles = projectiles;
+
+            this.player = players.FirstOrDefault(); // Assigne le premier joueur de la liste à la variable player
+
 
             this.DoubleBuffered = true; // Pour éviter le scintillement lors du rendu
 
@@ -96,6 +104,7 @@ namespace OceanInvader
         // Méthode appelée à chaque frame
         private void NewFrame(object sender, EventArgs e)
         {
+           
 
             this.Update(ticker.Interval);
             this.Render();
@@ -109,7 +118,7 @@ namespace OceanInvader
                 Projectile projectile = new Projectile(player);
                 projectiles.Add(projectile);
                 
-                MessageBox.Show($"Clic à ({e.X},{e.Y})");
+               // MessageBox.Show($"Clic à ({e.X},{e.Y})");
             }
         }
     }

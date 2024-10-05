@@ -3,7 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OceanInvader", "OceanInvader\OceanInvader.csproj", "{2EEE1A5F-56B1-463B-A464-11E112253F45}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OceanInvader", "OceanInvader\OceanInvader.csproj", "{2EEE1A5F-56B1-463B-A464-11E112253F45}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Éléments de solution", "Éléments de solution", "{8D8FCB73-0484-4FD9-A2D3-A431A6A231E1}"
+	ProjectSection(SolutionItems) = preProject
+		..\doc\UX\Mer.png = ..\doc\UX\Mer.png
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -16,17 +16,17 @@ namespace OceanInvader
         public Projectile(Player player)
         {
             this.player = player;
-            int projX = player.X;
-            int projY = player.Y;
+            this.projX = player.X;
+            this.projY = player.Y;
         }
         
 
-        private Pen droneBrush = new Pen(new SolidBrush(Color.Red), 3);
+        private Pen droneBrush = new Pen(new SolidBrush(Color.Green), 3);
 
         // De manière graphique
         public void Render(BufferedGraphics drawingSpace)
         {
-            drawingSpace.Graphics.DrawRectangle(droneBrush, new Rectangle(projX,projY, 10, 20));
+            drawingSpace.Graphics.DrawRectangle(droneBrush, new Rectangle(projX,projY, 2, 10));
 
         }
     }

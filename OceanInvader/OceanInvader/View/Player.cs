@@ -15,7 +15,7 @@ namespace OceanInvader
 
         private int playerX = 600; // Position initiale du bateau en X
         private int playerY = 400; // Position initiale du bateau en Y
-        private int playerWidth = 50; // Largeur du bateau
+        private int playerWidth = 30; // Largeur du bateau
         private int playerHeight = 30; // Hauteur du bateau
 
         private Pen droneBrush = new Pen(new SolidBrush(Color.Red), 3);
