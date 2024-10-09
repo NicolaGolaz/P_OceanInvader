@@ -34,11 +34,13 @@ namespace OceanInvader
 
             List<Projectile> projectiles = new List<Projectile>();
 
-
+            List<AttaqueZone> attaqueZones = new List<AttaqueZone>();
                 
-
+            List<Obstacle> obstacles = new List<Obstacle>();
+            Obstacle obstacle = new Obstacle();
+            obstacles.Add(obstacle);
                 // Démarrage
-                Application.Run(new Ocean(fleet, players, projectiles));
+                Application.Run(new Ocean(fleet, players, projectiles, attaqueZones, obstacles));
             
 
         }

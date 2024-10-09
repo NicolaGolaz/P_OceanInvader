@@ -44,6 +44,7 @@
             ClientSize = new Size(479, 163);
             Name = "Ocean";
             Text = "AirSpace";
+            MouseClick += Ocean_MouseUp;
             MouseDown += Ocean_MouseDown;
             ResumeLayout(false);
         }
