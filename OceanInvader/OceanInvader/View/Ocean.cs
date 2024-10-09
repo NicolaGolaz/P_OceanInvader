@@ -38,7 +38,7 @@ namespace OceanInvader
         {
             InitializeComponent();
             this.ClientSize = new Size(WIDTH, HEIGHT);
-            // backgroundimage = Image.FromFile("C:\\Users\\po42oio\\Documents\\GitHub\\OceanInvader\\OceanInvader\\OceanInvader\\Images\\Mer.png");
+            // backgroundimage = Image.FromFile(@"..\..\..\Images\Mer.png");
 
             // Initialisation du label
             cooldownLabel = new Label();
