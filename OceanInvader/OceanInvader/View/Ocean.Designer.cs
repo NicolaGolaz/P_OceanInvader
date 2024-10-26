@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ocean));
             ticker = new System.Windows.Forms.Timer(components);
             SuspendLayout();
             // 
@@ -41,9 +42,11 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(479, 163);
             Name = "Ocean";
             Text = "AirSpace";
+            Load += Ocean_Load;
             MouseClick += Ocean_MouseUp;
             MouseDown += Ocean_MouseDown;
             ResumeLayout(false);

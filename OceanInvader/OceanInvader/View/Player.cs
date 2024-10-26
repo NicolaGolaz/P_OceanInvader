@@ -15,18 +15,19 @@ namespace OceanInvader
 
         private int playerX = 600; // Position initiale du bateau en X
         private int playerY = 400; // Position initiale du bateau en Y
-        private int playerWidth = 30; // Largeur du bateau
-        private int playerHeight = 30; // Hauteur du bateau
+        private int playerWidth = 40; // Largeur du bateau
+        private int playerHeight = 40; // Hauteur du bateau
 
         private Pen droneBrush = new Pen(new SolidBrush(Color.Red), 3);
+
+        private Image playerImage; // Image du joueur
+
+        Image boatImg = Image.FromFile(@"..\..\..\Images\Vaisseau.png");
 
         // De manière graphique
         public void Render(BufferedGraphics drawingSpace)
         {
-            drawingSpace.Graphics.DrawRectangle(droneBrush, new Rectangle(X , Y, playerHeight, playerWidth));
-            
+            drawingSpace.Graphics.DrawImage(boatImg, new Rectangle(X, Y, playerWidth, playerHeight));
         }
-
-       
     }
 }

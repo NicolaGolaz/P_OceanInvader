@@ -26,7 +26,8 @@ namespace OceanInvader
 
         private Label cooldownLabel;
 
-
+        
+        Image backgroundImage = Image.FromFile(@"..\..\..\Images\Ocean.png");
 
         BufferedGraphicsContext currentContext;
         BufferedGraphics airspace;
@@ -38,7 +39,9 @@ namespace OceanInvader
         {
             InitializeComponent();
             this.ClientSize = new Size(WIDTH, HEIGHT);
-            // backgroundimage = Image.FromFile(@"..\..\..\Images\Mer.png");
+
+
+            // backgroundimage = Image.FromFile(@"..\..\..\Images\Mer.jpg");
 
             // Initialisation du label
             cooldownLabel = new Label();
@@ -46,7 +49,7 @@ namespace OceanInvader
             cooldownLabel.Size = new Size(200, 20); // Ajustez la taille
             this.Controls.Add(cooldownLabel); // Ajoutez le label au formulaire
 
-           
+
 
             this.KeyDown += new KeyEventHandler(OnKeyDown);
 
@@ -83,7 +86,10 @@ namespace OceanInvader
         // Affichage de la situation actuelle
         private void Render()
         {
-            airspace.Graphics.Clear(Color.AliceBlue);
+            
+            airspace.Graphics.DrawImage(backgroundImage, new Rectangle(0, 0, WIDTH, HEIGHT));
+
+
 
             // draw drones
             foreach (Boat boat in fleet)
@@ -104,9 +110,9 @@ namespace OceanInvader
             {
                 attaqueZone.Render(airspace);
             }
-            foreach(Obstacle obstacle in obstacles)
-            { 
-                obstacle.Render(airspace); 
+            foreach (Obstacle obstacle in obstacles)
+            {
+                obstacle.Render(airspace);
             }
 
             airspace.Render();
@@ -141,7 +147,7 @@ namespace OceanInvader
 
             this.Update(ticker.Interval);
             this.Render();
-            
+
         }
 
         private void Ocean_MouseDown(object sender, MouseEventArgs e)
@@ -179,5 +185,9 @@ namespace OceanInvader
             }
         }
 
+        private void Ocean_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

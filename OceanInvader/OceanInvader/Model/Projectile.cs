@@ -13,6 +13,7 @@ namespace OceanInvader
         public void Update()
         {
             projY -= projSpeed;
+            
         }
     }
 }
