@@ -6,15 +6,17 @@ using System.Threading.Tasks;
 
 namespace OceanInvader
 {
-    public partial class Projectile
+    public partial class ProjectileBoat
     {
         public Rectangle HitBox = new Rectangle();
+        public bool IsDestroyed { get; set; } = false;
 
-        private int projSpeed = 10;
+
+        private int projSpeed = 8;
         public void Update()
         {
-            projY -= projSpeed;
-            HitBox = new Rectangle(projX, projY, 15, 30);
+            projBoatY += projSpeed;
+            HitBox = new Rectangle(projBoatX, projBoatY, 10, 20);
 
         }
     }

@@ -19,6 +19,7 @@ namespace OceanInvader
         public List<Projectile> projectiles;
         public List<AttaqueZone> attaqueZones;
         public List<Obstacle> obstacles;
+        public List<ProjectileBoat> projectileBoats;
         private Player player;
         private DateTime lastAttaqueTime = DateTime.MinValue;
 
@@ -26,7 +27,7 @@ namespace OceanInvader
 
         private Label cooldownLabel;
 
-        
+
         Image backgroundImage = Image.FromFile(@"..\..\..\Images\Ocean.png");
 
         BufferedGraphicsContext currentContext;
@@ -35,7 +36,7 @@ namespace OceanInvader
 
 
         // Initialisation de l'espace aérien avec un certain nombre de drones
-        public Ocean(List<Boat> fleet, List<Player> players, List<Projectile> projectiles, List<AttaqueZone> attaqueZones, List<Obstacle> obstacles)
+        public Ocean(List<Boat> fleet, List<Player> players, List<Projectile> projectiles, List<AttaqueZone> attaqueZones, List<Obstacle> obstacles, List<ProjectileBoat> projectileBoats)
         {
             InitializeComponent();
             this.ClientSize = new Size(WIDTH, HEIGHT);
@@ -63,13 +64,13 @@ namespace OceanInvader
             this.projectiles = projectiles;
             this.attaqueZones = attaqueZones;
             this.obstacles = obstacles;
+            
 
             this.player = players.FirstOrDefault(); // Assigne le premier joueur de la liste à la variable player
 
 
             this.DoubleBuffered = true; // Pour éviter le scintillement lors du rendu
-
-
+            this.projectileBoats = projectileBoats;
         }
 
 
@@ -86,7 +87,7 @@ namespace OceanInvader
         // Affichage de la situation actuelle
         private void Render()
         {
-            
+
             airspace.Graphics.DrawImage(backgroundImage, new Rectangle(0, 0, WIDTH, HEIGHT));
 
 
@@ -114,6 +115,21 @@ namespace OceanInvader
             {
                 obstacle.Render(airspace);
             }
+            foreach(ProjectileBoat projectileBoat in projectileBoats)
+            {
+                projectileBoat.Render(airspace);
+                foreach (Player player in players)
+                {
+                    if (projectileBoat.HitBox.IntersectsWith(player.HitBox))
+                    {
+                        player.playerHp -= 1;
+                        Console.WriteLine(player.playerHp);
+                        projectileBoat.IsDestroyed = true;
+                    }
+                   
+                }
+            }
+            projectileBoats.RemoveAll(b => b.IsDestroyed);
 
             airspace.Render();
         }
@@ -121,14 +137,23 @@ namespace OceanInvader
         // Calcul du nouvel état après que 'interval' millisecondes se sont écoulées
         private void Update(int interval)
         {
-            foreach (Boat boat in fleet)
-            {
-                boat.Update(interval);
-            }
             foreach (Projectile projectile in projectiles)
             {
                 projectile.Update();
             }
+            foreach (Boat boat in fleet)
+            {
+                boat.Update(interval);
+                foreach (Projectile projectile in projectiles)
+                {
+                    if (boat.HitBox.IntersectsWith(projectile.HitBox))
+                    {
+                        boat.IsDestroyed = true;
+                    }
+                }
+            }
+            fleet.RemoveAll(b => b.IsDestroyed);
+
             foreach (AttaqueZone attaqueZone in attaqueZones)
             {
                 attaqueZone.Update();
@@ -136,6 +161,10 @@ namespace OceanInvader
             foreach (Obstacle obstacle in obstacles)
             {
                 obstacle.Update();
+            }
+            foreach(ProjectileBoat projectileBoat in projectileBoats)
+            {
+                projectileBoat.Update();
             }
 
         }
@@ -154,9 +183,17 @@ namespace OceanInvader
         {
             if (e.Button == MouseButtons.Left)
             {
-                Projectile projectile = new Projectile(player);
-                projectiles.Add(projectile);
-
+                double timeSinceLastAttaque1 = (DateTime.Now - lastAttaqueTime).TotalSeconds;
+                if ((DateTime.Now - lastAttaqueTime).TotalSeconds >= 2)
+                {
+                    Projectile projectile = new Projectile(player);
+                    projectiles.Add(projectile);
+                    lastAttaqueTime = DateTime.Now;
+                }
+                else
+                {
+                    double remainingTimeCoolDown = 10 - timeSinceLastAttaque1;
+                }
 
             }
         }
@@ -165,7 +202,7 @@ namespace OceanInvader
         {
             if (f.Button == MouseButtons.Right)
             {
-                double timeSinceLastAttaque = (DateTime.Now - lastAttaqueTime).TotalSeconds;
+                double timeSinceLastAttaque2 = (DateTime.Now - lastAttaqueTime).TotalSeconds;
                 if ((DateTime.Now - lastAttaqueTime).TotalSeconds >= 10)
                 {
                     AttaqueZone attaqueZone = new AttaqueZone(player);
@@ -175,7 +212,7 @@ namespace OceanInvader
                 else
                 {
 
-                    double remainingTimeCoolDown = 10 - timeSinceLastAttaque;
+                    double remainingTimeCoolDown = 10 - timeSinceLastAttaque2;
                     cooldownLabel.Text = $"Cooldown restant : {remainingTimeCoolDown:F1} secondes";
                 }
 

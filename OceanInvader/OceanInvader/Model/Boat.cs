@@ -6,9 +6,10 @@ namespace OceanInvader
     public partial class Boat
     {
         Random alea = new Random();
+        public Rectangle HitBox = new Rectangle();
+        public bool IsDestroyed { get; set; } = false;
 
-        
-        public string name;                           // Un nom
+
         public int x;                                // Position en X depuis la gauche de l'espace aérien
         public int y;                                 // Position en Y depuis le haut de l'espace aérien
 
@@ -18,30 +19,31 @@ namespace OceanInvader
 
         public void Update(int interval)
         {
+            HitBox = new Rectangle(x - 4, y - 2, 16, 16);
 
 
             if (y < 580 && x > 0 && x < 1180)
             {
                 y += 3;                                    // Il s'est déplacé de 2 pixels vers la droite
-                x += alea.Next(-20, 20);                     // Il s'est déplacé d'une valeur aléatoire vers le haut ou le bas
+              //  x += alea.Next(-20, 20);                     // Il s'est déplacé d'une valeur aléatoire vers le haut ou le bas
                 
             }// Il a dépensé de l'énergie
             else if (x < 0)
             {
                 y += 3;                                    // Il s'est déplacé de 2 pixels vers la droite
-                x += 20;                     // Il s'est déplacé d'une valeur aléatoire vers le haut ou le bas
+              //  x += 20;                     // Il s'est déplacé d'une valeur aléatoire vers le haut ou le bas
                 
             }
             else if (x < 0)
             {
                 y += 3;                                    // Il s'est déplacé de 2 pixels vers la droite
-                x += 20;                     // Il s'est déplacé d'une valeur aléatoire vers le haut ou le bas
+              //  x += 20;                     // Il s'est déplacé d'une valeur aléatoire vers le haut ou le bas
                
             }
             else if (x > 1180)
             {
                 y += 3;                                    // Il s'est déplacé de 2 pixels vers la droite
-                x -= 20;                     // Il s'est déplacé d'une valeur aléatoire vers le haut ou le bas
+              //  x -= 20;                     // Il s'est déplacé d'une valeur aléatoire vers le haut ou le bas
                 
             }
             else if (y > 580)

@@ -7,11 +7,12 @@ namespace OceanInvader
     public partial class Boat
     {
         private Pen droneBrush = new Pen(new SolidBrush(Color.Purple), 3);
+      
 
         // De manière graphique
         public void Render(BufferedGraphics drawingSpace)
         {
-            drawingSpace.Graphics.DrawEllipse(droneBrush, new Rectangle(x - 4, y - 2, 8, 8));
+            drawingSpace.Graphics.DrawRectangle(droneBrush, new Rectangle(x - 4, y - 2, 16, 16));
            
         }
 

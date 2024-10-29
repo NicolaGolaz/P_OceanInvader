@@ -15,8 +15,9 @@ namespace OceanInvader
 
         private int playerX = 600; // Position initiale du bateau en X
         private int playerY = 400; // Position initiale du bateau en Y
-        private int playerWidth = 40; // Largeur du bateau
-        private int playerHeight = 40; // Hauteur du bateau
+        private int playerWidth = 60; // Largeur du bateau
+        private int playerHeight = 60; // Hauteur du bateau
+        public Rectangle HitBox = new Rectangle();
 
         private Pen droneBrush = new Pen(new SolidBrush(Color.Red), 3);
 
@@ -27,6 +28,7 @@ namespace OceanInvader
         // De manière graphique
         public void Render(BufferedGraphics drawingSpace)
         {
+            HitBox = new Rectangle(X, Y, 60, 60);
             drawingSpace.Graphics.DrawImage(boatImg, new Rectangle(X, Y, playerWidth, playerHeight));
         }
     }

@@ -10,6 +10,8 @@ namespace OceanInvader
         public int Y { get; private set; }
 
         private int speed;
+        
+        public int playerHp = 10; 
 
         public Player(int x, int y)
         {
@@ -27,6 +29,7 @@ namespace OceanInvader
 
                 if (playerY > 300)
                 {
+
                     Y -= 5;
                     playerY -= 5;
                 }
