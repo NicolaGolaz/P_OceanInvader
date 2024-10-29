@@ -115,7 +115,7 @@ namespace OceanInvader
             {
                 obstacle.Render(airspace);
             }
-            foreach(ProjectileBoat projectileBoat in projectileBoats)
+            foreach(ProjectileBoat projectileBoat in new List<ProjectileBoat>(projectileBoats))
             {
                 projectileBoat.Render(airspace);
                 foreach (Player player in players)
@@ -123,7 +123,6 @@ namespace OceanInvader
                     if (projectileBoat.HitBox.IntersectsWith(player.HitBox))
                     {
                         player.playerHp -= 1;
-                        Console.WriteLine(player.playerHp);
                         projectileBoat.IsDestroyed = true;
                     }
                    
@@ -172,11 +171,8 @@ namespace OceanInvader
         // Méthode appelée à chaque frame
         private void NewFrame(object sender, EventArgs e)
         {
-
-
             this.Update(ticker.Interval);
             this.Render();
-
         }
 
         private void Ocean_MouseDown(object sender, MouseEventArgs e)
@@ -184,7 +180,7 @@ namespace OceanInvader
             if (e.Button == MouseButtons.Left)
             {
                 double timeSinceLastAttaque1 = (DateTime.Now - lastAttaqueTime).TotalSeconds;
-                if ((DateTime.Now - lastAttaqueTime).TotalSeconds >= 2)
+                if ((DateTime.Now - lastAttaqueTime).TotalSeconds >= 0.5)
                 {
                     Projectile projectile = new Projectile(player);
                     projectiles.Add(projectile);
@@ -194,7 +190,6 @@ namespace OceanInvader
                 {
                     double remainingTimeCoolDown = 10 - timeSinceLastAttaque1;
                 }
-
             }
         }
 
@@ -211,14 +206,9 @@ namespace OceanInvader
                 }
                 else
                 {
-
                     double remainingTimeCoolDown = 10 - timeSinceLastAttaque2;
                     cooldownLabel.Text = $"Cooldown restant : {remainingTimeCoolDown:F1} secondes";
                 }
-
-
-
-
             }
         }
 

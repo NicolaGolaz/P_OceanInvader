@@ -18,6 +18,7 @@ namespace OceanInvader
         private int playerWidth = 60; // Largeur du bateau
         private int playerHeight = 60; // Hauteur du bateau
         public Rectangle HitBox = new Rectangle();
+        public int playerHp = 10;
 
         private Pen droneBrush = new Pen(new SolidBrush(Color.Red), 3);
 
@@ -30,6 +31,10 @@ namespace OceanInvader
         {
             HitBox = new Rectangle(X, Y, 60, 60);
             drawingSpace.Graphics.DrawImage(boatImg, new Rectangle(X, Y, playerWidth, playerHeight));
+            Font font = new Font("Arial", 12, FontStyle.Bold);
+            Brush brush = Brushes.White;          
+            Point hpPosition = new Point(X, Y - 20);            
+            drawingSpace.Graphics.DrawString($"HP: {playerHp}", font, brush, hpPosition);
         }
     }
 }

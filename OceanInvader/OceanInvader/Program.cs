@@ -9,6 +9,8 @@ namespace OceanInvader
     {
         private static System.Timers.Timer SpawnTimer1;
         private static System.Timers.Timer SpawnTimer2;
+        private static readonly object fleetLock = new object();
+
 
         /// <summary>
         ///  The main entry point for the application.
@@ -35,24 +37,39 @@ namespace OceanInvader
 
 
             // **Initialisation et configuration du Timer pour générer des ennemis de manière infinie**
-            SpawnTimer1 = new System.Timers.Timer(3000); // Intervalle en millisecondes (1 seconde)
+            SpawnTimer1 = new System.Timers.Timer(4000); // Intervalle en millisecondes (1 seconde)
             SpawnTimer1.Elapsed += (sender, e) =>
             {
-                Boat boat = new Boat();
-                boat.x = Random1.RandomX();
-                boat.y = 0;
-                fleet.Add(boat);
-
-                foreach (Boat boat1 in fleet)
+                lock (fleetLock)  // Verrouille l'accès pendant la modification
                 {
-                    ProjectileBoat projectileBoat = new ProjectileBoat(boat1);
-                    projectileBoats.Add(projectileBoat);
+                    Boat boat = new Boat();
+                    boat.x = Random1.RandomX();
+                    boat.y = 0;
+                    fleet.Add(boat);
                 }
 
             };
             SpawnTimer1.AutoReset = true; // Pour que le Timer se déclenche de manière répétée
             SpawnTimer1.Enabled = true;   // Activation du Timer
 
+            // **Initialisation et configuration du Timer pour générer des ennemis de manière infinie**
+            SpawnTimer2 = new System.Timers.Timer(4000); // Intervalle en millisecondes (1 seconde)
+            SpawnTimer2.Elapsed += (sender, e) =>
+            {
+                List<Boat> fleetCopy;
+                lock (fleetLock)  // Verrouille l'accès pendant la copie
+                {
+                    // Crée une copie de `fleet` pour éviter les conflits de modification
+                    fleetCopy = new List<Boat>(fleet);
+                }
+                foreach (Boat boat1 in fleetCopy)
+                {
+                    ProjectileBoat projectileBoat = new ProjectileBoat(boat1);
+                    projectileBoats.Add(projectileBoat);
+                }
+            };
+            SpawnTimer2.AutoReset = true; // Pour que le Timer se déclenche de manière répétée
+            SpawnTimer2.Enabled = true;   // Activation du Timer
 
 
 

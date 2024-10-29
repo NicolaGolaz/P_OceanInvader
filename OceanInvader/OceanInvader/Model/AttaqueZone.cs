@@ -12,6 +12,8 @@ namespace OceanInvader
         
         public void Update()
         {
+           
+
             zoneY -= ZoneSpeed;
         }
     }

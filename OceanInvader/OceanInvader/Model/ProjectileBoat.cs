@@ -16,7 +16,7 @@ namespace OceanInvader
         public void Update()
         {
             projBoatY += projSpeed;
-            HitBox = new Rectangle(projBoatX, projBoatY, 10, 20);
+            HitBox = new Rectangle(projBoatX, projBoatY, 30, 40);
 
         }
     }

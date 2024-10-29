@@ -11,7 +11,7 @@ namespace OceanInvader
         private Boat boat;
         private int projBoatX;
         private int projBoatY;
-        private Image projectileBoatImg = Image.FromFile(@"..\..\..\Images\Projectile.png");
+        private Image projectileBoatImg = Image.FromFile(@"..\..\..\Images\projectileBoat.png");
 
 
         public ProjectileBoat(Boat boat)
@@ -28,7 +28,7 @@ namespace OceanInvader
         // De manière graphique
         public void Render(BufferedGraphics drawingSpace)
         {
-            drawingSpace.Graphics.DrawImage(projectileBoatImg, new Rectangle(projBoatX, projBoatY, 10, 20));
+            drawingSpace.Graphics.DrawImage(projectileBoatImg, new Rectangle(projBoatX, projBoatY, 30, 40));
 
         }
     }

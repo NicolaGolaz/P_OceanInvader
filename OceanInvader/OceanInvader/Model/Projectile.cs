@@ -10,7 +10,7 @@ namespace OceanInvader
     {
         public Rectangle HitBox = new Rectangle();
 
-        private int projSpeed = 10;
+        private int projSpeed = 20;
         public void Update()
         {
             projY -= projSpeed;
