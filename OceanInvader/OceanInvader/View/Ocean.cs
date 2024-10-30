@@ -15,6 +15,7 @@ namespace OceanInvader
         public static readonly int WIDTH = 1200;        // Dimensions of the airspace
         public static readonly int HEIGHT = 600;
 
+
         // La flotte est l'ensemble des drones qui évoluent dans notre espace aérien
         private List<Boat> fleet;
         private List<Player> players;
@@ -50,7 +51,7 @@ namespace OceanInvader
         {
             InitializeComponent();
             this.ClientSize = new Size(WIDTH, HEIGHT);
-
+            CenterToScreen();
 
             // backgroundimage = Image.FromFile(@"..\..\..\Images\Mer.jpg");
 

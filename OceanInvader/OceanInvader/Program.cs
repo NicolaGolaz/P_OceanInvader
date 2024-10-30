@@ -1,5 +1,7 @@
 using OceanInvader;
-using System.Drawing.Imaging;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 using System.Timers;
 
@@ -11,20 +13,21 @@ namespace OceanInvader
         private static System.Timers.Timer SpawnTimer2;
         private static readonly object fleetLock = new object();
 
-
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main()
         {
-            
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
 
+            // Afficher le menu principal
+            Application.Run(new MainMenu());
+        }
 
-
+        
+        public static void StartGame(int difficulty)
+        {
             // Création de la flotte de drones
             List<ProjectileBoat> projectileBoats = new List<ProjectileBoat>();
             List<Boat> fleet = new List<Boat>();
@@ -32,32 +35,49 @@ namespace OceanInvader
             Player player = new Player(600, 500);
             players.Add(player);
 
+            // Configurer les timers selon la difficulté
+            int spawnInterval1 = 1000; // Valeur par défaut
+            int spawnInterval2 = 1000; // Valeur par défaut
 
+            // Définir les intervalles de spawn selon la difficulté choisie
+            switch (difficulty)
+            {
+                case 1: // Facile
+                    spawnInterval1 = 8000;
+                    spawnInterval2 = 3000;
+                    break;
+                case 2: // Normal
+                    spawnInterval1 = 7000;
+                    spawnInterval2 = 2000;
+                    break;
+                case 3: // Difficile
+                    spawnInterval1 = 6000;
+                    spawnInterval2 = 1500;
+                    break;
+            }
 
-            // **Initialisation et configuration du Timer pour générer des ennemis de manière infinie**
-            SpawnTimer1 = new System.Timers.Timer(7000); // Intervalle en millisecondes (6 seconde)
+            // Initialisation et configuration du Timer pour générer des ennemis
+            SpawnTimer1 = new System.Timers.Timer(spawnInterval1);
             SpawnTimer1.Elapsed += (sender, e) =>
             {
-                lock (fleetLock)  // Verrouille l'accès pendant la modification
+                lock (fleetLock)
                 {
                     Boat boat = new Boat();
                     boat.x = Random1.RandomX();
                     boat.y = 0;
                     fleet.Add(boat);
                 }
-
             };
-            SpawnTimer1.AutoReset = true; // Pour que le Timer se déclenche de manière répétée
-            SpawnTimer1.Enabled = true;   // Activation du Timer
+            SpawnTimer1.AutoReset = true;
+            SpawnTimer1.Enabled = true;
 
-            // **Initialisation et configuration du Timer pour générer des ennemis de manière infinie**
-            SpawnTimer2 = new System.Timers.Timer(2000); // Intervalle en millisecondes (2 seconde)
+            // Configuration du Timer pour les projectiles
+            SpawnTimer2 = new System.Timers.Timer(spawnInterval2);
             SpawnTimer2.Elapsed += (sender, e) =>
             {
                 List<Boat> fleetCopy;
-                lock (fleetLock)  // Verrouille l'accès pendant la copie
+                lock (fleetLock)
                 {
-                    // Crée une copie de `fleet` pour éviter les conflits de modification
                     fleetCopy = new List<Boat>(fleet);
                 }
                 foreach (Boat boat1 in fleetCopy)
@@ -66,26 +86,81 @@ namespace OceanInvader
                     projectileBoats.Add(projectileBoat);
                 }
             };
-            SpawnTimer2.AutoReset = true; // Pour que le Timer se déclenche de manière répétée
-            SpawnTimer2.Enabled = true;   // Activation du Timer
-
-
-
+            SpawnTimer2.AutoReset = true;
+            SpawnTimer2.Enabled = true;
 
             List<Projectile> projectiles = new List<Projectile>();
-
             List<AttaqueZone> attaqueZones = new List<AttaqueZone>();
+            List<Obstacle> obstacles = new List<Obstacle>
+            {
+                new Obstacle(200),
+                new Obstacle(800)
+            };
 
-            List<Obstacle> obstacles = new List<Obstacle>();
-            Obstacle obstacle = new Obstacle(200);
-            obstacles.Add(obstacle);
-            Obstacle obstacle2 = new Obstacle(800);
-            obstacles.Add(obstacle2);
+            // Démarrage du jeu sans une nouvelle Application.Run
+            Ocean oceanForm = new Ocean(fleet, players, projectiles, attaqueZones, obstacles, projectileBoats);
+            oceanForm.Show(); // Utiliser Show() pour afficher le formulaire
 
-            // Démarrage
-            Application.Run(new Ocean(fleet, players, projectiles, attaqueZones, obstacles, projectileBoats));
+            // Permet de fermer le menu après le lancement du jeu 
+            Application.OpenForms[0].Hide(); 
+        }
+    }
 
+    public class MainMenu : Form
+    {
+        // Le menu permettant de choisir entre les différent niveau 
+        public MainMenu()
+        {
+            Text = "Menu Principal";
+            Size = new Size(300, 250);
+            CenterToScreen();
 
+            // Bouton pour le niveau facile
+            Button level1Button = new Button
+            {
+                Text = "Niveau 1",
+                Location = new Point(90, 30),
+                Size = new Size(100, 30)
+            };
+            level1Button.Click += (sender, e) => StartGame(1);
+
+            // Bouton pour le niveau normal
+            Button level2Button = new Button
+            {
+                Text = "Niveau 2",
+                Location = new Point(90, 70),
+                Size = new Size(100, 30)
+            };
+            level2Button.Click += (sender, e) => StartGame(2);
+
+            // Bouton pour le niveau difficile
+            Button level3Button = new Button
+            {
+                Text = "Niveau 3",
+                Location = new Point(90, 110),
+                Size = new Size(100, 30)
+            };
+            level3Button.Click += (sender, e) => StartGame(3);
+
+            // Bouton pour quitter
+            Button exitButton = new Button
+            {
+                Text = "Quitter",
+                Location = new Point(90, 150),
+                Size = new Size(100, 30)
+            };
+            exitButton.Click += (sender, e) => Application.Exit();
+
+            // Ajouter les boutons au Form
+            Controls.Add(level1Button);
+            Controls.Add(level2Button);
+            Controls.Add(level3Button);
+            Controls.Add(exitButton);
+        }
+
+        private void StartGame(int difficulty)
+        {
+            Program.StartGame(difficulty);
         }
     }
 }
