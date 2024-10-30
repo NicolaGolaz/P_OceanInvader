@@ -23,6 +23,8 @@ namespace OceanInvader
         private Player player;
         private DateTime lastAttaqueTime = DateTime.MinValue;
         private bool isGameOver = false;
+        private Pen droneBrush = new Pen(new SolidBrush(Color.Pink), 3);
+
 
 
         private Image backgroundimage;
@@ -102,6 +104,7 @@ namespace OceanInvader
         {
 
             airspace.Graphics.DrawImage(backgroundImage, new Rectangle(0, 0, WIDTH, HEIGHT));
+            airspace.Graphics.DrawRectangle(droneBrush,new Rectangle(0 , 410, 1200, 1200)); // Dessine l'HitBox
 
 
 
@@ -166,6 +169,7 @@ namespace OceanInvader
             }
             foreach (Boat boat in fleet)
             {
+                
                 boat.Update(interval);
                 foreach (Projectile projectile in projectiles)
                 {
@@ -256,13 +260,6 @@ namespace OceanInvader
                     cooldownLabel.Text = $"Cooldown restant : {remainingTimeCoolDown:F1} secondes";
                 }
             }
-        }
-
-        
-
-        private void Ocean_Load(object sender, EventArgs e)
-        {
-
-        }
+        }      
     }
 }

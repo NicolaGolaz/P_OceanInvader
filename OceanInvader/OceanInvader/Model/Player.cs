@@ -28,8 +28,8 @@ namespace OceanInvader
                 if (playerY > 300)
                 {
 
-                    Y -= 10;
-                    playerY -= 10;
+                    Y -= 5;
+                    playerY -= 5;
                 }
                 else
                 {
@@ -40,10 +40,10 @@ namespace OceanInvader
             }
             if (e.KeyCode == Keys.S) // Bas
             {
-                if (playerY < 480)
+                if (playerY < 410)
                 {
-                    Y += 10;
-                    playerY += 10;
+                    Y += 5;
+                    playerY += 5;
                 }
                 else
                 {
@@ -54,8 +54,8 @@ namespace OceanInvader
             {
                 if (playerX > 0)
                 {
-                    X -= 10;
-                    playerX -= 10;
+                    X -= 5;
+                    playerX -= 5;
                 }
                 else
                 {
@@ -64,10 +64,10 @@ namespace OceanInvader
             }
             if (e.KeyCode == Keys.D) // Droite
             {
-                if (playerX < 1180)
+                if (playerX < 1140)
                 {
-                    X += 10;
-                    playerX += 10;
+                    X += 5;
+                    playerX +=5;
                 }
                 else
                 {
@@ -75,8 +75,5 @@ namespace OceanInvader
                 }
             }
         }
-
-
-
     }
 }

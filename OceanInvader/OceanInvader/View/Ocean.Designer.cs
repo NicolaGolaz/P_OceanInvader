@@ -37,6 +37,7 @@
             // 
             ticker.Enabled = true;
             ticker.Tick += NewFrame;
+            ticker.Interval = 1;
             // 
             // Ocean
             // 
@@ -45,8 +46,7 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(479, 163);
             Name = "Ocean";
-            Text = "AirSpace";
-            Load += Ocean_Load;
+            Text = "AirSpace";           
             MouseClick += Ocean_MouseUp;
             MouseDown += Ocean_MouseDown;
             ResumeLayout(false);
