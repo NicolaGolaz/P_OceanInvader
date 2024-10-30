@@ -30,7 +30,8 @@ namespace OceanInvader
         public void Render(BufferedGraphics drawingSpace)
         {
             drawingSpace.Graphics.DrawImage(projectileImg, new Rectangle(projX, projY, 15, 30));
-           
+           // drawingSpace.Graphics.DrawRectangle(droneBrush,new Rectangle(projX , projY+10, 15, 20)); // Dessine l'HitBox
+
         }
     }
 }

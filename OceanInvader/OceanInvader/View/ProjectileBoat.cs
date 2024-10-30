@@ -28,7 +28,7 @@ namespace OceanInvader
         // De manière graphique
         public void Render(BufferedGraphics drawingSpace)
         {
-            drawingSpace.Graphics.DrawImage(projectileBoatImg, new Rectangle(projBoatX, projBoatY, 30, 40));
+            drawingSpace.Graphics.DrawImage(projectileBoatImg, new Rectangle(projBoatX + 20, projBoatY + 50, 30, 40));
 
         }
     }

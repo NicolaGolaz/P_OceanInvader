@@ -12,11 +12,11 @@ namespace OceanInvader
         public bool IsDestroyed { get; set; } = false;
 
 
-        private int projSpeed = 8;
+        private int projSpeed = 10;
         public void Update()
         {
             projBoatY += projSpeed;
-            HitBox = new Rectangle(projBoatX, projBoatY, 30, 40);
+            HitBox = new Rectangle(projBoatX + 20, projBoatY + 50, 30, 40);
 
         }
     }

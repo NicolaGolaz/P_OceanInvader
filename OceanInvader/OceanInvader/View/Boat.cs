@@ -6,14 +6,14 @@ namespace OceanInvader
 
     public partial class Boat
     {
-        private Pen droneBrush = new Pen(new SolidBrush(Color.Purple), 3);
-      
+       
+        Image boatImg = Image.FromFile(@"..\..\..\Images\Boat.png");
+
 
         // De manière graphique
         public void Render(BufferedGraphics drawingSpace)
         {
-            drawingSpace.Graphics.DrawRectangle(droneBrush, new Rectangle(x - 4, y - 2, 16, 16));
-           
+            drawingSpace.Graphics.DrawImage(boatImg, new Rectangle(x, y, 70, 100));                    
         }
 
         // De manière textuelle

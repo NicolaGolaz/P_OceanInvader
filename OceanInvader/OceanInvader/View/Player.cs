@@ -15,22 +15,21 @@ namespace OceanInvader
 
         private int playerX = 600; // Position initiale du bateau en X
         private int playerY = 400; // Position initiale du bateau en Y
-        private int playerWidth = 60; // Largeur du bateau
-        private int playerHeight = 60; // Hauteur du bateau
+        private int playerWidth = 70; // Largeur du bateau
+        private int playerHeight = 100; // Hauteur du bateau
         public Rectangle HitBox = new Rectangle();
         public int playerHp = 10;
 
-        private Pen droneBrush = new Pen(new SolidBrush(Color.Red), 3);
+        private Pen hitBoxBrush = new Pen(new SolidBrush(Color.Red), 3);
 
-        private Image playerImage; // Image du joueur
-
-        Image boatImg = Image.FromFile(@"..\..\..\Images\Vaisseau.png");
+        Image playerImg = Image.FromFile(@"..\..\..\Images\Player.png");
 
         // De manière graphique
         public void Render(BufferedGraphics drawingSpace)
         {
-            HitBox = new Rectangle(X, Y, 60, 60);
-            drawingSpace.Graphics.DrawImage(boatImg, new Rectangle(X, Y, playerWidth, playerHeight));
+            HitBox = new Rectangle(X+18, Y+8, 30, 70);
+            drawingSpace.Graphics.DrawImage(playerImg, new Rectangle(X, Y, playerWidth, playerHeight));
+          // drawingSpace.Graphics.DrawRectangle(hitBoxBrush,new Rectangle(X + 18, Y+8, 30, 70)); // Dessine l'HitBox
             Font font = new Font("Arial", 12, FontStyle.Bold);
             Brush brush = Brushes.White;          
             Point hpPosition = new Point(X, Y - 20);            

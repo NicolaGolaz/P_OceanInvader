@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Éléments de solution", "�
 		..\doc\UX\Mer.png = ..\doc\UX\Mer.png
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.OceanInvader", "Test.OceanInvader\Test.OceanInvader.csproj", "{8CBCB615-88BF-4557-9BD4-48A60E14911B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +22,10 @@ Global
 		{2EEE1A5F-56B1-463B-A464-11E112253F45}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2EEE1A5F-56B1-463B-A464-11E112253F45}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2EEE1A5F-56B1-463B-A464-11E112253F45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CBCB615-88BF-4557-9BD4-48A60E14911B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CBCB615-88BF-4557-9BD4-48A60E14911B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CBCB615-88BF-4557-9BD4-48A60E14911B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CBCB615-88BF-4557-9BD4-48A60E14911B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

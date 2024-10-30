@@ -22,10 +22,14 @@ namespace OceanInvader
         public List<ProjectileBoat> projectileBoats;
         private Player player;
         private DateTime lastAttaqueTime = DateTime.MinValue;
+        private bool isGameOver = false;
+
 
         private Image backgroundimage;
 
         private Label cooldownLabel;
+        private Label gameOverLabel;
+
 
 
         Image backgroundImage = Image.FromFile(@"..\..\..\Images\Ocean.png");
@@ -46,11 +50,20 @@ namespace OceanInvader
 
             // Initialisation du label
             cooldownLabel = new Label();
-            cooldownLabel.Location = new Point(500, 570); // Ajustez la position selon vos besoins
-            cooldownLabel.Size = new Size(200, 20); // Ajustez la taille
-            this.Controls.Add(cooldownLabel); // Ajoutez le label au formulaire
+            cooldownLabel.Location = new Point(500, 570); // Ajustement de la position 
+            cooldownLabel.Size = new Size(200, 20); // Ajustement de la taille
+            this.Controls.Add(cooldownLabel); // Ajoute le label au formulaire
 
-
+            // Initialisation du label
+            gameOverLabel = new Label();
+            gameOverLabel.Text = "Game Over";
+            gameOverLabel.Font = new Font("Arial", 20, FontStyle.Bold); // Police grande et en gras
+            gameOverLabel.ForeColor = Color.Red; // Texte en rouge
+            gameOverLabel.BackColor = Color.Black; // Fond noir
+            gameOverLabel.TextAlign = ContentAlignment.MiddleCenter; // Centrer le texte
+            gameOverLabel.AutoSize = false; // Permet de définir une taille précise pour le label
+            gameOverLabel.Location = new Point((WIDTH/2)-200, (HEIGHT/2)-50); // Ajustement de la position
+            gameOverLabel.Size = new Size(400, 100); // Ajustement de la taille
 
             this.KeyDown += new KeyEventHandler(OnKeyDown);
 
@@ -93,7 +106,7 @@ namespace OceanInvader
 
 
             // draw drones
-            foreach (Boat boat in fleet)
+            foreach (Boat boat in new List<Boat>(fleet))
             {
                 boat.Render(airspace);
             }
@@ -101,6 +114,12 @@ namespace OceanInvader
             foreach (Player player in players)
             {
                 player.Render(airspace);
+                if (player.playerHp == 0)
+                {
+                    isGameOver = true;
+                    this.Controls.Add(gameOverLabel); // Ajoutez le label au formulaire
+                    
+                }
             }
 
             foreach (Projectile projectile in projectiles)
@@ -130,6 +149,11 @@ namespace OceanInvader
             }
             projectileBoats.RemoveAll(b => b.IsDestroyed);
 
+            if (isGameOver == true)
+            {
+                return;
+            }
+
             airspace.Render();
         }
 
@@ -148,10 +172,12 @@ namespace OceanInvader
                     if (boat.HitBox.IntersectsWith(projectile.HitBox))
                     {
                         boat.IsDestroyed = true;
+                        projectile.IsDestroyed = true;
                     }
                 }
             }
             fleet.RemoveAll(b => b.IsDestroyed);
+            projectiles.RemoveAll(b => b.IsDestroyed);
 
             foreach (AttaqueZone attaqueZone in attaqueZones)
             {
@@ -160,10 +186,30 @@ namespace OceanInvader
             foreach (Obstacle obstacle in obstacles)
             {
                 obstacle.Update();
+                foreach (ProjectileBoat projectileBoat in projectileBoats)
+                {
+                    if (obstacle.HitBox.IntersectsWith(projectileBoat.HitBox))
+                    {
+                        projectileBoat.IsDestroyed = true;
+                    }
+                }
+                foreach (Projectile projectile in projectiles)
+                {
+                    if (obstacle.HitBox.IntersectsWith(projectile.HitBox))
+                    {
+                        projectile.IsDestroyed = true;
+                    }
+                }
             }
+            projectiles.RemoveAll(b => b.IsDestroyed);
+            projectileBoats.RemoveAll(b => b.IsDestroyed);
             foreach(ProjectileBoat projectileBoat in projectileBoats)
             {
                 projectileBoat.Update();
+            }
+            if (isGameOver == true)
+            {
+                return;
             }
 
         }
@@ -211,6 +257,8 @@ namespace OceanInvader
                 }
             }
         }
+
+        
 
         private void Ocean_Load(object sender, EventArgs e)
         {

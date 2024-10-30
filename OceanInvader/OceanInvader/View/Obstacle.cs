@@ -12,12 +12,14 @@ namespace OceanInvader
     {
        
         protected SolidBrush obstacleBrush = new SolidBrush(Color.Black);
+        private Pen hitBoxBrush = new Pen(new SolidBrush(Color.Red), 3);
 
 
         // De manière graphique
         public void Render(BufferedGraphics drawingSpace)
         {
-            drawingSpace.Graphics.FillRectangle(obstacleBrush, new Rectangle(objX, objY, 50, 5));
+            drawingSpace.Graphics.FillRectangle(obstacleBrush, new Rectangle(objX, objY, 120, 5));
+            drawingSpace.Graphics.DrawRectangle(hitBoxBrush,new Rectangle(objX , objY, 120, 5)); // Dessine l'HitBox
 
 
         }

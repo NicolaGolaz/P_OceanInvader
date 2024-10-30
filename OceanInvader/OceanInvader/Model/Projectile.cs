@@ -9,12 +9,13 @@ namespace OceanInvader
     public partial class Projectile
     {
         public Rectangle HitBox = new Rectangle();
+        public bool IsDestroyed { get; set; } = false;
 
         private int projSpeed = 20;
         public void Update()
         {
             projY -= projSpeed;
-            HitBox = new Rectangle(projX, projY, 15, 30);
+            HitBox = new Rectangle(projX , projY+10, 15, 20);
 
         }
     }

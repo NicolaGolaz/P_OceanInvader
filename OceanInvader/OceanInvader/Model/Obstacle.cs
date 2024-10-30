@@ -11,40 +11,24 @@ namespace OceanInvader
         public int objX = 200;
         public int objY = 300;
         private DateTime timerObject = DateTime.MinValue;
-        int i = 0;
+       
 
-        public Rectangle HitBox { get; set; }
+        public Rectangle HitBox = new Rectangle();
+
 
 
         public Obstacle(int ObjX)
         {
-            this.objX = ObjX;
-            HitBox = new Rectangle(objX, objY, 50, 5);
-
+            this.objX = ObjX;          
         }
 
 
 
         public void Update()
         {
-
-            i++;
-            if ((DateTime.Now - timerObject).TotalSeconds < 5)
-            {
-                if (i % 2 == 0 || i % 4 == 0)
-                {
-                    objX -= 2;
-                    objX -= 3;
-                }
-                else
-                {
-                    objX += 2;
-                    objX += 3;
-                }
-            }
+            HitBox = new Rectangle(objX , objY , 120, 5);
 
 
-            timerObject = DateTime.Now;
         }
 
     }
