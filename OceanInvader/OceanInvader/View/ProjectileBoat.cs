@@ -9,8 +9,8 @@ namespace OceanInvader
     public partial class ProjectileBoat
     {
         private Boat boat;
-        private int projBoatX;
-        private int projBoatY;
+        public int projBoatX;
+        public int projBoatY;
         private Image projectileBoatImg = Image.FromFile(@"..\..\..\Images\projectileBoat.png");
 
 

@@ -166,6 +166,11 @@ namespace OceanInvader
             foreach(ProjectileBoat projectileBoat in new List<ProjectileBoat>(projectileBoats))
             {
                 projectileBoat.Render(airspace);
+                if (projectileBoat.projBoatY > 600)
+                {
+                    projectileBoat.IsDestroyed = true;
+                }
+
                 foreach (Player player in players)
                 {
                     if (projectileBoat.HitBox.IntersectsWith(player.HitBox))
