@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Timers;
+using System.Runtime.CompilerServices;
 
 namespace OceanInvader
 {
@@ -12,6 +13,7 @@ namespace OceanInvader
         private static System.Timers.Timer SpawnTimer1;
         private static System.Timers.Timer SpawnTimer2;
         private static readonly object fleetLock = new object();
+        public static int niveau = 0;
 
         /// <summary>
         ///  The main entry point for the application.
@@ -28,6 +30,8 @@ namespace OceanInvader
         
         public static void StartGame(int difficulty)
         {
+            niveau = difficulty;
+           
             // Création de la flotte de drones
             List<ProjectileBoat> projectileBoats = new List<ProjectileBoat>();
             List<Boat> fleet = new List<Boat>();
@@ -42,15 +46,15 @@ namespace OceanInvader
             // Définir les intervalles de spawn selon la difficulté choisie
             switch (difficulty)
             {
-                case 1: // Facile
+                case 1: // Niveau 1
                     spawnInterval1 = 8000;
                     spawnInterval2 = 3000;
                     break;
-                case 2: // Normal
+                case 2: // Niveau 2
                     spawnInterval1 = 7000;
                     spawnInterval2 = 2000;
                     break;
-                case 3: // Difficile
+                case 3: // Niveau 3
                     spawnInterval1 = 6000;
                     spawnInterval2 = 1500;
                     break;
@@ -96,13 +100,10 @@ namespace OceanInvader
                 new Obstacle(200),
                 new Obstacle(800)
             };
-
+            
             // Démarrage du jeu sans une nouvelle Application.Run
             Ocean oceanForm = new Ocean(fleet, players, projectiles, attaqueZones, obstacles, projectileBoats);
-            oceanForm.Show(); // Utiliser Show() pour afficher le formulaire
-
-            // Permet de fermer le menu après le lancement du jeu 
-            Application.OpenForms[0].Hide(); 
+            oceanForm.Show(); // Utiliser Show() pour afficher le formulaire           
         }
     }
 

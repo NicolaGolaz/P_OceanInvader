@@ -83,6 +83,17 @@ namespace OceanInvader
             scoreLabel.TextAlign = ContentAlignment.TopCenter;
             this.Controls.Add(scoreLabel);
 
+            // Bouton pour quitter le niveau et revenir au menu principal
+            Button exitButton = new Button();  // Création d'un nouveau bouton
+            exitButton.Text = "Quitter";        // Texte du bouton
+            exitButton.Location = new Point(WIDTH - 100, 10); // Position du bouton en haut à droite
+            exitButton.Size = new Size(80, 30); // Taille du bouton
+            exitButton.TabStop = false; // Permet au bouton de ne pas recevoir le focus de la touche tab
+            exitButton.Click += (sender, e) => {                             
+               this.Close(); // Ferme le niveau en cours d'éxécution
+            };
+            this.Controls.Add(exitButton); // **Ajout du bouton au formulaire**
+           
             this.KeyDown += new KeyEventHandler(OnKeyDown);
 
             // Gets a reference to the current BufferedGraphicsContext
@@ -159,7 +170,18 @@ namespace OceanInvader
                 {
                     if (projectileBoat.HitBox.IntersectsWith(player.HitBox))
                     {
-                        player.playerHp -= 1;
+                        if (Program.niveau == 1)
+                        {
+                            player.playerHp -= 1;
+                        }
+                        else if (Program.niveau == 2)
+                        {
+                            player.playerHp -= 2;
+                        }
+                        else if (Program.niveau == 3)
+                        {
+                            player.playerHp -= 3;
+                        }
                         projectileBoat.IsDestroyed = true;
                     }
                    
@@ -194,6 +216,17 @@ namespace OceanInvader
                 {
                     if (boat.HitBox.IntersectsWith(projectile.HitBox))
                     {
+                        foreach (Player player in players)
+                        {
+                            if (Program.niveau == 2 && player.playerHp < 10)
+                            {
+                                player.playerHp += 1;
+                            }
+                            else if (Program.niveau == 3 && player.playerHp < 10)
+                            {
+                                player.playerHp += 2;
+                            }                         
+                        }
                         playerScore += 1;
                         scoreLabel.Text = "Score : " + playerScore;
                         this.Controls.Add(scoreLabel);
