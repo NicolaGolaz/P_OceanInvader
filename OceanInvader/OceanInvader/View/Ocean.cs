@@ -28,7 +28,7 @@ namespace OceanInvader
         private bool isGameOver = false;
         private Pen droneBrush = new Pen(new SolidBrush(Color.Pink), 3);
         private int playerScore = 0;
-        
+
 
 
         private Image backgroundimage;
@@ -69,7 +69,7 @@ namespace OceanInvader
             gameOverLabel.BackColor = Color.Black; // Fond noir
             gameOverLabel.TextAlign = ContentAlignment.MiddleCenter; // Centrer le texte
             gameOverLabel.AutoSize = false; // Permet de définir une taille précise pour le label
-            gameOverLabel.Location = new Point((WIDTH/2)-200, (HEIGHT/2)-50); // Ajustement de la position
+            gameOverLabel.Location = new Point((WIDTH / 2) - 200, (HEIGHT / 2) - 50); // Ajustement de la position
             gameOverLabel.Size = new Size(400, 100); // Ajustement de la taille
 
             // Initialisation du label
@@ -77,7 +77,7 @@ namespace OceanInvader
             scoreLabel.Location = new Point(5, 5);
             scoreLabel.Size = new Size(80, 17);
             scoreLabel.Text = "Score : " + playerScore;
-            scoreLabel.Font = new Font("Arial", 10, FontStyle.Bold); 
+            scoreLabel.Font = new Font("Arial", 10, FontStyle.Bold);
             scoreLabel.ForeColor = Color.Black;
             scoreLabel.BackColor = Color.LightGoldenrodYellow;
             scoreLabel.TextAlign = ContentAlignment.TopCenter;
@@ -89,11 +89,12 @@ namespace OceanInvader
             exitButton.Location = new Point(WIDTH - 100, 10); // Position du bouton en haut à droite
             exitButton.Size = new Size(80, 30); // Taille du bouton
             exitButton.TabStop = false; // Permet au bouton de ne pas recevoir le focus de la touche tab
-            exitButton.Click += (sender, e) => {                             
-               this.Close(); // Ferme le niveau en cours d'éxécution
+            exitButton.Click += (sender, e) =>
+            {
+                this.Close(); // Ferme le niveau en cours d'éxécution
             };
             this.Controls.Add(exitButton); // **Ajout du bouton au formulaire**
-           
+
             this.KeyDown += new KeyEventHandler(OnKeyDown);
 
             // Gets a reference to the current BufferedGraphicsContext
@@ -114,7 +115,7 @@ namespace OceanInvader
             this.projectileBoats = projectileBoats;
         }
 
-
+        
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
             foreach (Player player in players)
@@ -123,16 +124,13 @@ namespace OceanInvader
             }
         }
 
-
-
         // Affichage de la situation actuelle
         private void Render()
         {
-
+            // Initialisation du background
             airspace.Graphics.DrawImage(backgroundImage, new Rectangle(0, 0, WIDTH, HEIGHT));
-            airspace.Graphics.DrawRectangle(droneBrush,new Rectangle(0 , 410, 1200, 1200)); // Dessine l'HitBox
-
-
+            // Dessine la zone de mouvement du joueur
+            airspace.Graphics.DrawRectangle(droneBrush, new Rectangle(0, 410, 1200, 1200)); 
 
             // draw drones
             foreach (Boat boat in new List<Boat>(fleet))
@@ -147,7 +145,7 @@ namespace OceanInvader
                 {
                     isGameOver = true;
                     this.Controls.Add(gameOverLabel); // Ajoutez le label au formulaire
-                    
+
                 }
             }
 
@@ -163,7 +161,7 @@ namespace OceanInvader
             {
                 obstacle.Render(airspace);
             }
-            foreach(ProjectileBoat projectileBoat in new List<ProjectileBoat>(projectileBoats))
+            foreach (ProjectileBoat projectileBoat in new List<ProjectileBoat>(projectileBoats))
             {
                 projectileBoat.Render(airspace);
                 if (projectileBoat.projBoatY > 600)
@@ -189,7 +187,6 @@ namespace OceanInvader
                         }
                         projectileBoat.IsDestroyed = true;
                     }
-                   
                 }
             }
             projectileBoats.RemoveAll(b => b.IsDestroyed);
@@ -198,7 +195,6 @@ namespace OceanInvader
             {
                 return;
             }
-
             airspace.Render();
         }
 
@@ -230,7 +226,7 @@ namespace OceanInvader
                             else if (Program.niveau == 3 && player.playerHp < 10)
                             {
                                 player.playerHp += 2;
-                            }                         
+                            }
                         }
                         playerScore += 1;
                         scoreLabel.Text = "Score : " + playerScore;
@@ -267,7 +263,7 @@ namespace OceanInvader
             }
             projectiles.RemoveAll(b => b.IsDestroyed);
             projectileBoats.RemoveAll(b => b.IsDestroyed);
-            foreach(ProjectileBoat projectileBoat in projectileBoats)
+            foreach (ProjectileBoat projectileBoat in projectileBoats)
             {
                 projectileBoat.Update();
             }
@@ -275,7 +271,6 @@ namespace OceanInvader
             {
                 return;
             }
-
         }
 
         // Méthode appelée à chaque frame
@@ -285,6 +280,11 @@ namespace OceanInvader
             this.Render();
         }
 
+        /// <summary>
+        /// Description : 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Ocean_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -321,9 +321,5 @@ namespace OceanInvader
                 }
             }
         }
-
-        // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-       
-
     }
 }
