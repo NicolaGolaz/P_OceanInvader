@@ -18,9 +18,7 @@ namespace OceanInvader
         [STAThread]
         static void Main()
         {
-
-
-
+            
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
@@ -37,7 +35,7 @@ namespace OceanInvader
 
 
             // **Initialisation et configuration du Timer pour générer des ennemis de manière infinie**
-            SpawnTimer1 = new System.Timers.Timer(5000); // Intervalle en millisecondes (6 seconde)
+            SpawnTimer1 = new System.Timers.Timer(7000); // Intervalle en millisecondes (6 seconde)
             SpawnTimer1.Elapsed += (sender, e) =>
             {
                 lock (fleetLock)  // Verrouille l'accès pendant la modification
@@ -53,7 +51,7 @@ namespace OceanInvader
             SpawnTimer1.Enabled = true;   // Activation du Timer
 
             // **Initialisation et configuration du Timer pour générer des ennemis de manière infinie**
-            SpawnTimer2 = new System.Timers.Timer(6000); // Intervalle en millisecondes (6 seconde)
+            SpawnTimer2 = new System.Timers.Timer(2000); // Intervalle en millisecondes (2 seconde)
             SpawnTimer2.Elapsed += (sender, e) =>
             {
                 List<Boat> fleetCopy;

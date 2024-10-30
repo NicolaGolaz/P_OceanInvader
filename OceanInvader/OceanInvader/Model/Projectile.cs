@@ -11,7 +11,7 @@ namespace OceanInvader
         public Rectangle HitBox = new Rectangle();
         public bool IsDestroyed { get; set; } = false;
 
-        private int projSpeed = 20;
+        private int projSpeed = 8;
         public void Update()
         {
             projY -= projSpeed;

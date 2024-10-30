@@ -1,6 +1,8 @@
 using OceanInvader;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+using System;
 
 namespace OceanInvader
 {
@@ -24,13 +26,15 @@ namespace OceanInvader
         private DateTime lastAttaqueTime = DateTime.MinValue;
         private bool isGameOver = false;
         private Pen droneBrush = new Pen(new SolidBrush(Color.Pink), 3);
-
+        private int playerScore = 0;
+        
 
 
         private Image backgroundimage;
 
         private Label cooldownLabel;
         private Label gameOverLabel;
+        private Label scoreLabel;
 
 
 
@@ -67,6 +71,17 @@ namespace OceanInvader
             gameOverLabel.Location = new Point((WIDTH/2)-200, (HEIGHT/2)-50); // Ajustement de la position
             gameOverLabel.Size = new Size(400, 100); // Ajustement de la taille
 
+            // Initialisation du label
+            scoreLabel = new Label();
+            scoreLabel.Location = new Point(5, 5);
+            scoreLabel.Size = new Size(80, 17);
+            scoreLabel.Text = "Score : " + playerScore;
+            scoreLabel.Font = new Font("Arial", 10, FontStyle.Bold); 
+            scoreLabel.ForeColor = Color.Black;
+            scoreLabel.BackColor = Color.LightGoldenrodYellow;
+            scoreLabel.TextAlign = ContentAlignment.TopCenter;
+            this.Controls.Add(scoreLabel);
+
             this.KeyDown += new KeyEventHandler(OnKeyDown);
 
             // Gets a reference to the current BufferedGraphicsContext
@@ -79,7 +94,6 @@ namespace OceanInvader
             this.projectiles = projectiles;
             this.attaqueZones = attaqueZones;
             this.obstacles = obstacles;
-            
 
             this.player = players.FirstOrDefault(); // Assigne le premier joueur de la liste à la variable player
 
@@ -169,12 +183,19 @@ namespace OceanInvader
             }
             foreach (Boat boat in fleet)
             {
-                
+                if (boat.y > 340)
+                {
+                    isGameOver = true;
+                    this.Controls.Add(gameOverLabel); // Ajoutez le label au formulaire
+                }
                 boat.Update(interval);
                 foreach (Projectile projectile in projectiles)
                 {
                     if (boat.HitBox.IntersectsWith(projectile.HitBox))
                     {
+                        playerScore += 1;
+                        scoreLabel.Text = "Score : " + playerScore;
+                        this.Controls.Add(scoreLabel);
                         boat.IsDestroyed = true;
                         projectile.IsDestroyed = true;
                     }
@@ -260,6 +281,10 @@ namespace OceanInvader
                     cooldownLabel.Text = $"Cooldown restant : {remainingTimeCoolDown:F1} secondes";
                 }
             }
-        }      
+        }
+
+        // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+       
+
     }
 }

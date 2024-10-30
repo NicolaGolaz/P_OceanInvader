@@ -12,7 +12,7 @@ namespace OceanInvader
         public bool IsDestroyed { get; set; } = false;
 
 
-        private int projSpeed = 10;
+        private int projSpeed = 3;
         public void Update()
         {
             projBoatY += projSpeed;
