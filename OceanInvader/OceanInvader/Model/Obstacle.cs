@@ -27,8 +27,6 @@ namespace OceanInvader
         public void Update()
         {
             HitBox = new Rectangle(objX , objY , 120, 5);
-
-
         }
 
     }

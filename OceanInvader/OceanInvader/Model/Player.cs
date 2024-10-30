@@ -9,14 +9,17 @@ namespace OceanInvader
         public int X { get; private set; }
         public int Y { get; private set; }
 
+        private int playerHp;
+        public int PlayerHp { get { return playerHp; } private set { playerHp = value; } }
         private int playerSpeed = 8;
-      
+
         public Player(int x, int y)
         {
+           
             X = x;
             Y = y;
-
-
+            PlayerHp = 10;
+           
         }
 
         // Méthode pour déplacer le joueur en fonction de l'entrée du clavier
@@ -73,6 +76,21 @@ namespace OceanInvader
                 {
                     playerX += 0;
                 }
+            }
+        }
+        public void TakeDamage(int value)
+        {         
+            playerHp -= value;
+        }
+        public void Heal(int value)
+        {
+            if (playerHp + value > 10)
+            {
+                playerHp = 10;
+            }
+            else
+            {
+                playerHp += value;
             }
         }
     }

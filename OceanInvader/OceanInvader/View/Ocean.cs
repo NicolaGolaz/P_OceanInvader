@@ -141,7 +141,7 @@ namespace OceanInvader
             foreach (Player player in players)
             {
                 player.Render(airspace);
-                if (player.playerHp == 0)
+                if (player.PlayerHp == 0)
                 {
                     isGameOver = true;
                     this.Controls.Add(gameOverLabel); // Ajoutez le label au formulaire
@@ -172,19 +172,8 @@ namespace OceanInvader
                 foreach (Player player in players)
                 {
                     if (projectileBoat.HitBox.IntersectsWith(player.HitBox))
-                    {
-                        if (Program.niveau == 1)
-                        {
-                            player.playerHp -= 1;
-                        }
-                        else if (Program.niveau == 2)
-                        {
-                            player.playerHp -= 2;
-                        }
-                        else if (Program.niveau == 3)
-                        {
-                            player.playerHp -= 3;
-                        }
+                    {                                                 
+                        player.TakeDamage(Program.niveau);                                                                                       
                         projectileBoat.IsDestroyed = true;
                     }
                 }
@@ -219,13 +208,13 @@ namespace OceanInvader
                     {
                         foreach (Player player in players)
                         {
-                            if (Program.niveau == 2 && player.playerHp < 10)
+                            if (Program.niveau == 2)
                             {
-                                player.playerHp += 1;
+                                player.Heal(1);
                             }
-                            else if (Program.niveau == 3 && player.playerHp < 10)
+                            else if (Program.niveau == 3)
                             {
-                                player.playerHp += 2;
+                                player.Heal(2);
                             }
                         }
                         playerScore += 1;

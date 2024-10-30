@@ -11,9 +11,7 @@ namespace OceanInvader
         private int ZoneSpeed = 8;
         
         public void Update()
-        {
-           
-
+        {      
             zoneY -= ZoneSpeed;
         }
     }

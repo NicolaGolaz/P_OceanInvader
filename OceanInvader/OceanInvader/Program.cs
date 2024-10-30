@@ -36,9 +36,10 @@ namespace OceanInvader
             List<ProjectileBoat> projectileBoats = new List<ProjectileBoat>();
             List<Boat> fleet = new List<Boat>();
             List<Player> players = new List<Player>();
+            
             Player player = new Player(600, 500);
             players.Add(player);
-
+          
             // Configurer les timers selon la difficulté
             int spawnInterval1 = 1000; // Valeur par défaut
             int spawnInterval2 = 1000; // Valeur par défaut

@@ -16,7 +16,6 @@ namespace OceanInvader
         {
             projY -= projSpeed;
             HitBox = new Rectangle(projX , projY+10, 15, 20);
-
         }
     }
 }

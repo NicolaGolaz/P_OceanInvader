@@ -18,7 +18,7 @@ namespace OceanInvader
         private int playerWidth = 70; // Largeur du bateau
         private int playerHeight = 100; // Hauteur du bateau
         public Rectangle HitBox = new Rectangle();
-        public int playerHp = 10;
+       
 
         private Pen hitBoxBrush = new Pen(new SolidBrush(Color.Red), 3);
 
