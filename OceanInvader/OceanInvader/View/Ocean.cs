@@ -171,14 +171,15 @@ namespace OceanInvader
 
                 foreach (Player player in players)
                 {
+                    // Condition pour voir si le projectile doit être détruit 
                     if (projectileBoat.HitBox.IntersectsWith(player.HitBox))
                     {                                                 
                         player.TakeDamage(Program.niveau);                                                                                       
-                        projectileBoat.IsDestroyed = true;
+                        projectileBoat.IsDestroyed = true; 
                     }
                 }
             }
-            projectileBoats.RemoveAll(b => b.IsDestroyed);
+            projectileBoats.RemoveAll(b => b.IsDestroyed); // Déstruction des projectiles 
 
             if (isGameOver == true)
             {
