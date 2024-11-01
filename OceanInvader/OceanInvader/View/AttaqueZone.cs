@@ -13,6 +13,8 @@ namespace OceanInvader
         private int zoneX;
         private int zoneY;
         private Image attaqueZoneImg = Image.FromFile(@"..\..\..\Images\AttaqueZone.png");
+        public bool IsDestroyed { get; set; } = false;
+
 
         public AttaqueZone(Player player)
         {
@@ -27,7 +29,7 @@ namespace OceanInvader
         // De manière graphique
         public void Render(BufferedGraphics drawingSpace)
         {
-
+            HitBox = new Rectangle(zoneX, zoneY, 40, 40);
             drawingSpace.Graphics.DrawImage(attaqueZoneImg, new Rectangle(zoneX, zoneY, 60, 40));
             drawingSpace.Graphics.DrawImage(attaqueZoneImg, new Rectangle(zoneX+30, zoneY, 60, 40));
             drawingSpace.Graphics.DrawImage(attaqueZoneImg, new Rectangle(zoneX - 30, zoneY, 60, 40));

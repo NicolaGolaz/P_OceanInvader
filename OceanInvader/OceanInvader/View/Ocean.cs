@@ -155,8 +155,17 @@ namespace OceanInvader
             }
             foreach (AttaqueZone attaqueZone in attaqueZones)
             {
+                foreach (Boat boat in fleet)
+                {
+                    if (boat.HitBox.IntersectsWith(attaqueZone.HitBox))
+                    {
+                        attaqueZone.IsDestroyed = true;
+                        boat.IsDestroyed = true;
+                    }
+                }
                 attaqueZone.Render(airspace);
             }
+            attaqueZones.RemoveAll(b => b.IsDestroyed); // Déstruction des projectiles 
             foreach (Obstacle obstacle in obstacles)
             {
                 obstacle.Render(airspace);

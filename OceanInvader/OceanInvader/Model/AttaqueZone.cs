@@ -9,9 +9,11 @@ namespace OceanInvader
     public partial class AttaqueZone
     {
         private int ZoneSpeed = 8;
-        
+        public Rectangle HitBox = new Rectangle();
+
+
         public void Update()
-        {      
+        {           
             zoneY -= ZoneSpeed;
         }
     }

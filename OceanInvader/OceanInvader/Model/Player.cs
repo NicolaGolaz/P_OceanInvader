@@ -34,10 +34,7 @@ namespace OceanInvader
                     Y -= playerSpeed;
                     playerY -= playerSpeed;
                 }
-                else
-                {
-                    Y -= 0;
-                }
+                
 
 
             }
@@ -48,10 +45,7 @@ namespace OceanInvader
                     Y += playerSpeed;
                     playerY += playerSpeed;
                 }
-                else
-                {
-                    playerY += 0;
-                }
+                
             }
             if (e.KeyCode == Keys.A) // Gauche
             {
@@ -60,10 +54,7 @@ namespace OceanInvader
                     X -= playerSpeed;
                     playerX -= playerSpeed;
                 }
-                else
-                {
-                    X -= 0;
-                }
+               
             }
             if (e.KeyCode == Keys.D) // Droite
             {
@@ -72,10 +63,7 @@ namespace OceanInvader
                     X += playerSpeed;
                     playerX += playerSpeed;
                 }
-                else
-                {
-                    playerX += 0;
-                }
+                
             }
         }
         public void TakeDamage(int value)
