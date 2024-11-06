@@ -12,7 +12,7 @@ namespace OceanInvader
 
         public static int RandomX()
         {
-            int randomInt = random.Next(0, 1180);
+            int randomInt = random.Next(0, 1120);
             return randomInt;
         }
         public static int RandomY()

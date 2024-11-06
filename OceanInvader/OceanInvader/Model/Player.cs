@@ -11,65 +11,95 @@ namespace OceanInvader
 
         private int playerHp;
         public int PlayerHp { get { return playerHp; } private set { playerHp = value; } }
-        private int playerSpeed = 8;
+        private int playerSpeed = 6;
+
+        private bool movingUp = false;    
+        private bool movingDown = false;   
+        private bool movingLeft = false;   
+        private bool movingRight = false;  
 
         public Player(int x, int y)
         {
-           
             X = x;
             Y = y;
             PlayerHp = 10;
-           
         }
 
-        // Méthode pour déplacer le joueur en fonction de l'entrée du clavier
-        public void Move(KeyEventArgs e)
+        // Méthode pour mettre à jour l'état des déplacements
+        public void UpdateMovement()
+        {
+            // Déplacement vers le haut
+            if (movingUp && Y > 400)  
+            {
+                Y -= playerSpeed;
+            }
+
+            // Déplacement vers le bas
+            if (movingDown && Y < 510) 
+            {
+                Y += playerSpeed;
+            }
+
+            // Déplacement vers la gauche
+            if (movingLeft && X > 0)   
+            {
+                X -= playerSpeed;
+            }
+
+            // Déplacement vers la droite
+            if (movingRight && X < 1140) 
+            {
+                X += playerSpeed;
+            }
+        }
+
+        // Méthode pour gérer l'appui sur une touche
+        public void OnKeyDown(KeyEventArgs e)
         {
             if (e.KeyCode == Keys.W) // Haut
             {
-
-                if (playerY > 300)
-                {
-
-                    Y -= playerSpeed;
-                    playerY -= playerSpeed;
-                }
-                
-
-
+                movingUp = true;  
             }
             if (e.KeyCode == Keys.S) // Bas
             {
-                if (playerY < 410)
-                {
-                    Y += playerSpeed;
-                    playerY += playerSpeed;
-                }
-                
+                movingDown = true; 
             }
             if (e.KeyCode == Keys.A) // Gauche
             {
-                if (playerX > 0)
-                {
-                    X -= playerSpeed;
-                    playerX -= playerSpeed;
-                }
-               
+                movingLeft = true; 
             }
             if (e.KeyCode == Keys.D) // Droite
             {
-                if (playerX < 1140)
-                {
-                    X += playerSpeed;
-                    playerX += playerSpeed;
-                }
-                
+                movingRight = true; 
             }
         }
+
+        // Méthode pour gérer le relâchement d'une touche
+        public void OnKeyUp(KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.W) // Haut
+            {
+                movingUp = false;  
+            }
+            if (e.KeyCode == Keys.S) // Bas
+            {
+                movingDown = false; 
+            }
+            if (e.KeyCode == Keys.A) // Gauche
+            {
+                movingLeft = false; 
+            }
+            if (e.KeyCode == Keys.D) // Droite
+            {
+                movingRight = false; 
+            }
+        }
+
         public void TakeDamage(int value)
-        {         
+        {
             playerHp -= value;
         }
+
         public void Heal(int value)
         {
             if (playerHp + value > 10)

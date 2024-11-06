@@ -24,7 +24,10 @@ namespace OceanInvader
         public List<Obstacle> obstacles;
         public List<ProjectileBoat> projectileBoats;
         private Player player;
-        private DateTime lastAttaqueTime = DateTime.MinValue;
+        private DateTime lastAttaqueTime1 = DateTime.MinValue;
+       
+        public double remainingTimeCoolDown = 0;
+
         private bool isGameOver = false;
         private Pen droneBrush = new Pen(new SolidBrush(Color.Pink), 3);
         private int playerScore = 0;
@@ -96,6 +99,7 @@ namespace OceanInvader
             this.Controls.Add(exitButton); // **Ajout du bouton au formulaire**
 
             this.KeyDown += new KeyEventHandler(OnKeyDown);
+            this.KeyUp += new KeyEventHandler(OnKeyUp);  // <-- Modifié ici
 
             // Gets a reference to the current BufferedGraphicsContext
             currentContext = BufferedGraphicsManager.Current;
@@ -115,12 +119,22 @@ namespace OceanInvader
             this.projectileBoats = projectileBoats;
         }
 
-        
+        // Méthode pour gérer les touches appuyer 
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
             foreach (Player player in players)
             {
-                player.Move(e);  // Appel de la méthode Move du Player
+                    player.OnKeyDown(e);  // Appel de la méthode Move du Player
+                
+            }
+        }
+
+        // Méthode pour gérer les touches relâchées
+        private void OnKeyUp(object sender, KeyEventArgs e)
+        {
+            foreach (Player player in players)
+            {
+                player.OnKeyUp(e); 
             }
         }
 
@@ -151,6 +165,7 @@ namespace OceanInvader
 
             foreach (Projectile projectile in projectiles)
             {
+                
                 projectile.Render(airspace);
             }
             foreach (AttaqueZone attaqueZone in attaqueZones)
@@ -159,7 +174,6 @@ namespace OceanInvader
                 {
                     if (boat.HitBox.IntersectsWith(attaqueZone.HitBox))
                     {
-                        attaqueZone.IsDestroyed = true;
                         boat.IsDestroyed = true;
                     }
                 }
@@ -200,6 +214,11 @@ namespace OceanInvader
         // Calcul du nouvel état après que 'interval' millisecondes se sont écoulées
         private void Update(int interval)
         {
+            foreach (Player player in players)
+            {
+                player.UpdateMovement(); // Met a jour la position du joueur
+            }
+
             foreach (Projectile projectile in projectiles)
             {
                 projectile.Update();
@@ -237,10 +256,13 @@ namespace OceanInvader
             }
             fleet.RemoveAll(b => b.IsDestroyed);
             projectiles.RemoveAll(b => b.IsDestroyed);
-
+            
+            cooldownLabel.Text = "Cooldown restant : " + Math.Floor(AttaqueZone.remainingTimeCoolDown) + " secondes";
             foreach (AttaqueZone attaqueZone in attaqueZones)
             {
                 attaqueZone.Update();
+                AttaqueZone.CoolDown();
+                cooldownLabel.Text = "Cooldown restant : "+ Math.Floor(AttaqueZone.remainingTimeCoolDown) +" secondes";
             }
             foreach (Obstacle obstacle in obstacles)
             {
@@ -288,12 +310,12 @@ namespace OceanInvader
         {
             if (e.Button == MouseButtons.Left)
             {
-                double timeSinceLastAttaque1 = (DateTime.Now - lastAttaqueTime).TotalSeconds;
-                if ((DateTime.Now - lastAttaqueTime).TotalSeconds >= 0.5)
+                double timeSinceLastAttaque1 = (DateTime.Now - lastAttaqueTime1).TotalSeconds;
+                if ((DateTime.Now - lastAttaqueTime1).TotalSeconds >= 0.5)
                 {
                     Projectile projectile = new Projectile(player);
                     projectiles.Add(projectile);
-                    lastAttaqueTime = DateTime.Now;
+                    lastAttaqueTime1 = DateTime.Now;
                 }
                 else
                 {
@@ -306,18 +328,14 @@ namespace OceanInvader
         {
             if (f.Button == MouseButtons.Right)
             {
-                double timeSinceLastAttaque2 = (DateTime.Now - lastAttaqueTime).TotalSeconds;
-                if ((DateTime.Now - lastAttaqueTime).TotalSeconds >= 10)
+                
+                if (AttaqueZone.CoolDown())
                 {
                     AttaqueZone attaqueZone = new AttaqueZone(player);
                     attaqueZones.Add(attaqueZone);
-                    lastAttaqueTime = DateTime.Now;
+                    AttaqueZone.lastAttaqueTime2 = DateTime.Now;
                 }
-                else
-                {
-                    double remainingTimeCoolDown = 10 - timeSinceLastAttaque2;
-                    cooldownLabel.Text = $"Cooldown restant : {remainingTimeCoolDown:F1} secondes";
-                }
+               
             }
         }
     }

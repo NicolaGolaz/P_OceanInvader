@@ -29,7 +29,7 @@ namespace OceanInvader
         // De manière graphique
         public void Render(BufferedGraphics drawingSpace)
         {
-            HitBox = new Rectangle(zoneX, zoneY, 40, 40);
+            HitBox = new Rectangle(zoneX-13, zoneY, 90, 30);        
             drawingSpace.Graphics.DrawImage(attaqueZoneImg, new Rectangle(zoneX, zoneY, 60, 40));
             drawingSpace.Graphics.DrawImage(attaqueZoneImg, new Rectangle(zoneX+30, zoneY, 60, 40));
             drawingSpace.Graphics.DrawImage(attaqueZoneImg, new Rectangle(zoneX - 30, zoneY, 60, 40));

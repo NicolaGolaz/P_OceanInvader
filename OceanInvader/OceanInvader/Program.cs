@@ -56,7 +56,7 @@ namespace OceanInvader
                     spawnInterval2 = 2000;
                     break;
                 case 3: // Niveau 3
-                    spawnInterval1 = 6000;
+                    spawnInterval1 = 2000;
                     spawnInterval2 = 1500;
                     break;
             }
