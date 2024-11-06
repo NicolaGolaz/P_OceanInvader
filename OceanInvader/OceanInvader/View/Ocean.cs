@@ -329,12 +329,11 @@ namespace OceanInvader
             if (f.Button == MouseButtons.Right)
             {
                 
-                if (AttaqueZone.CoolDown())
-                {
+               
                     AttaqueZone attaqueZone = new AttaqueZone(player);
                     attaqueZones.Add(attaqueZone);
                     AttaqueZone.lastAttaqueTime2 = DateTime.Now;
-                }
+                
                
             }
         }
